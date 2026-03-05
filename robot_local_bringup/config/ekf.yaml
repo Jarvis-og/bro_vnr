@@ -24,4 +24,6 @@ ekf_filter_node:
                   false, false, false]
 
     imu0_remove_gravitational_acceleration: true
+    imu0_differential: true
+    imu0_relative: false
 
