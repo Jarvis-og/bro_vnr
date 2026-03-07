@@ -62,7 +62,7 @@ class MPUNode(Node):
             #Orientation (EKF)
             msg.orientation_covariance[0]= -1.0
 
-            if (gz < 0.005):
+            if (gz <= 0.05):
                 gz= 0.0
             
             msg.angular_velocity.x= gx
@@ -73,13 +73,13 @@ class MPUNode(Node):
             msg.linear_acceleration.y= ay
             msg.linear_acceleration.z= az
 
-            msg.angular_velocity_covariance= [0.05, 0.0, 0.0,
-                                              0.0, 0.05, 0.0,
-                                              0.0, 0.0, 0.2]
+            # msg.angular_velocity_covariance= [0.05, 0.0, 0.0,
+            #                                   0.0, 0.05, 0.0,
+            #                                   0.0, 0.0, 0.2]
 
-            msg.linear_acceleration_covariance= [0.2, 0.0, 0.0,
-                                                 0.0, 0.2, 0.0,
-                                                 0.0, 0.0, 0.2]
+            # msg.linear_acceleration_covariance= [0.2, 0.0, 0.0,
+            #                                      0.0, 0.2, 0.0,
+            #                                      0.0, 0.0, 0.2]
 
 
             self.pub.publish(msg)
