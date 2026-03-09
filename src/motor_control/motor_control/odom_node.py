@@ -90,6 +90,13 @@ class Odom_Node(Node):
         odom.twist.twist.linear.x= vx
         odom.twist.twist.angular.z= vth
 
+        odom.pose.covariance[0] = 0.05
+        odom.pose.covariance[7] = 0.05
+        odom.pose.covariance[35] = 0.1
+        
+        odom.twist.covariance[0] = 0.1
+        odom.twist.covariance[35] = 0.2        
+
         self.odom_pub.publish(odom)
 
 
