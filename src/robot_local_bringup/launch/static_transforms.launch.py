@@ -11,7 +11,7 @@ def generate_launch_description():
     lidar_tf= Node(
         package='tf2_ros',
         executable='static_transform_publisher',
-        arguments= ['0', '0', '0.14', '0', '0', '0', 'base_link', 'laser']
+        arguments= ['0', '0', '0.14', '0', '0', '0', 'odom', 'laser']
     )
 
     return LaunchDescription([imu_tf, lidar_tf])
