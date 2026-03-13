@@ -27,6 +27,8 @@ class Odom_Node(Node):
         self.prev_left= 0.0
         self.prev_right= 0.0
         self.prev_time= 0.0
+        #self.vth= 0.0
+        #self.vx= 0.0
 
         self.create_subscription(Int64MultiArray, '/wheel_ticks', self.ticks_cb, 10)
         self.odom_pub= self.create_publisher(Odometry, '/odom', 10)
