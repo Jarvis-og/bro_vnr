@@ -4,8 +4,10 @@ from ament_index_python.packages import get_package_share_directory
 import os
 
 pkg= get_package_share_directory("bro_slam")
-map_file= os.path.join(pkg, "maps", "my_map.yaml")
+#home= get_package_share_directory("home")
+map_file= os.path.join("home","bro", "maps", "DSP_lab.yaml")
 amcl_file= os.path.join(pkg, "config", "tb_localization.yaml")
+print(pkg)
 
 def generate_launch_description():
     return LaunchDescription([

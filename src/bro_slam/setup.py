@@ -13,7 +13,7 @@ setup(
             ['resource/' + package_name]),
         (os.path.join('share', package_name, 'config'),glob('config/*.yaml')),
         (os.path.join('share', package_name, 'launch'),glob('launch/*.py')),
-        (os.path.join('share', package_name, 'maps'),glob('maps/*.yaml')),
+        #(os.path.join('share', package_name, 'maps'),glob('maps/*.yaml')),
         ('share/' + package_name, ['package.xml']),
     ],
     install_requires=['setuptools'],
