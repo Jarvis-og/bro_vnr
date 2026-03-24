@@ -75,17 +75,43 @@ def query_and_answer(question, db_path="./chroma_db", n_results=3, model="llama3
             'similarity': similarity
         })
     
-    context_text = "\n\n".join(contexts)
+    context = "\n\n".join(contexts)
     
     # Build prompt for LLM
-    prompt = f"""You are a helpful AI assistant. Answer the question based on the provided context. If the context doesn't contain enough information to answer the question, say so.
+    prompt = f"""You are a helpful AI assistant developed by students of the EEE department at VNR VJIET to assist with academic and technical queries.
 
-    Context:
-    {context_text}
+        Answer the user's questions in short, limiting to the query based only on the provided context below.
+        The context contains information from multiple sources including PDFs, Word documents, PowerPoint presentations, Excel sheets, and text files.
+        Greet the user when they greet you.
 
-    Question: {question}
+        Answer the question if it is related to engineering branches:
+        - computer science
+        - mechanical
+        - civil
+        - electrical
+        - electronics
+        - auto mobile
+        - chemistry
+        - physics
+        - mathematics
 
-    Answer:"""
+        If the answer is not found in the context or not related to engineering:
+        "I don't know."
+
+        If the query is from any different category like food, media and entertainment, sports, respond only with:
+        "I don't know."
+        
+        If the user uses abusive or offensive language, respond with:
+        "Please maintain a respectful tone."
+        ---
+        Context:
+        {context}
+
+        Question:
+        {question}
+
+        Answer:
+    """
     
     print(f"→ Generating answer with {model}...")
     print("\n" + "="*80)
@@ -139,7 +165,7 @@ if __name__ == "__main__":
     parser.add_argument("question", help="Question to ask")
     parser.add_argument("--db", default="./chroma_db", help="Database path (default: ./chroma_db)")
     parser.add_argument("--top-k", type=int, default=5, help="Number of chunks to retrieve (default: 3)")
-    parser.add_argument("--model", default="llama3.2:3b", help="Ollama model to use (default: llama3.2:3b)")
+    parser.add_argument("--model", default="qwen3:0.6b", help="Ollama model to use (default: llama3.2:3b)")
     
     args = parser.parse_args()
     
