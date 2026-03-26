@@ -6,8 +6,9 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
 
+ekf_pkg=get_package_share_directory('robot_local_bringup')
+ekf_param= os.path.join(ekf_pkg, 'config', 'ekf.yaml')
 
 def generate_launch_description():
     # Define parameters
@@ -84,9 +85,7 @@ def generate_launch_description():
         package='robot_localization',
         executable='ekf_node',
         name='ekf_node',
-        parameters=[
-            FindPackageShare('robot_local_bringup') + '/config/ekf.yaml'
-        ],
+        parameters=[ekf_param],
         output='screen'
     )
 
