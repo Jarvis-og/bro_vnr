@@ -9,6 +9,7 @@ from launch_ros.actions import Node
 
 ekf_pkg=get_package_share_directory('robot_local_bringup')
 ekf_param= os.path.join(ekf_pkg, 'config', 'ekf.yaml')
+print(ekf_param)
 
 def generate_launch_description():
     # Define parameters
@@ -84,7 +85,7 @@ def generate_launch_description():
     ekf_node = Node(
         package='robot_localization',
         executable='ekf_node',
-        name='ekf_node',
+        name='ekf_filter_node',
         parameters=[ekf_param],
         output='screen'
     )
