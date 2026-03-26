@@ -18,25 +18,25 @@ def generate_launch_description():
         description='Specifying channel type of lidar'
     )
     
-    serial_port_stm = DeclareLaunchArgument(
+    port = DeclareLaunchArgument(
         'port',
         default_value='/dev/ttyACM0',
         description='Specifying usb port to connected lidar'
     )
 
-    serial_port_lidar = DeclareLaunchArgument(
-        'serial_port',
-        default_value='/dev/ttyUSB0',
-        description='Specifying usb port to connected lidar'
-    )
-    
-    serial_baudrate_stm = DeclareLaunchArgument(
+    baud = DeclareLaunchArgument(
         'baud',
         default_value='115200',
         description='Specifying usb port baudrate to connected lidar'
     )
 
-    serial_baudrate_lidar = DeclareLaunchArgument(
+    serial_port = DeclareLaunchArgument(
+        'serial_port',
+        default_value='/dev/ttyUSB0',
+        description='Specifying usb port to connected lidar'
+    )
+    
+    serial_baudrate = DeclareLaunchArgument(
         'serial_baudrate',
         default_value='460800',
         description='Specifying usb port baudrate to connected lidar'
@@ -85,7 +85,7 @@ def generate_launch_description():
         package='robot_localization',
         executable='ekf_node',
         name='ekf_node',
-        parameters=[{'params_file': ekf_param}],
+        parameters=[ekf_param],
         output='screen'
     )
 
@@ -94,8 +94,8 @@ def generate_launch_description():
         executable='motor_driver',
         name='motor_driver',
         parameters=[
-            {'port': LaunchConfiguration('serial_port_stm'),
-             'baud': LaunchConfiguration('serial_baudrate_stm')}
+            {'port': LaunchConfiguration('port'),
+             'baud': LaunchConfiguration('baud')}
         ],
         output='screen'
     )
@@ -106,8 +106,8 @@ def generate_launch_description():
         name='sllidar_node',
         parameters=[
             {'channel_type': LaunchConfiguration('channel_type'),
-             'serial_port': LaunchConfiguration('serial_port_lidar'), 
-             'serial_baudrate': LaunchConfiguration('serial_baudrate_lidar'), 
+             'serial_port': LaunchConfiguration('serial_port'), 
+             'serial_baudrate': LaunchConfiguration('serial_baudrate'), 
              'frame_id': LaunchConfiguration('frame_id'),
              'inverted': LaunchConfiguration('inverted'), 
              'angle_compensate': LaunchConfiguration('angle_compensate'), 
@@ -135,10 +135,10 @@ def generate_launch_description():
     return LaunchDescription([
         # Declare parameters
         channel_type,
-        serial_port_lidar,
-        serial_port_stm,
-        serial_baudrate_lidar,
-        serial_baudrate_stm,
+        serial_port,
+        port,
+        serial_baudrate,
+        baud,
         frame_id,
         inverted,
         angle_compensate,
