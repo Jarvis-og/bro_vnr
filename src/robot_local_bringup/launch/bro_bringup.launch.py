@@ -19,7 +19,7 @@ def generate_launch_description():
     )
     
     serial_port_stm = DeclareLaunchArgument(
-        'serial_port',
+        'port',
         default_value='/dev/ttyACM0',
         description='Specifying usb port to connected lidar'
     )
@@ -31,7 +31,7 @@ def generate_launch_description():
     )
     
     serial_baudrate_stm = DeclareLaunchArgument(
-        'serial_baudrate',
+        'baud',
         default_value='115200',
         description='Specifying usb port baudrate to connected lidar'
     )
@@ -85,7 +85,7 @@ def generate_launch_description():
         package='robot_localization',
         executable='ekf_node',
         name='ekf_node',
-        parameters=[ekf_param],
+        parameters=[{'params_file': ekf_param}],
         output='screen'
     )
 
