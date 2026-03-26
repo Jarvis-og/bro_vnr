@@ -44,14 +44,14 @@ class MPUNode(Node):
             gz= self.read_word(GYRO_XOUT + 4)
 
             #Convert to SI
-            accel_scale= 16384.0
-            gyro_scale= 131.0
+            accel_scale= 16384.0 #is equal to 1g
+            gyro_scale= 131.0 #is equal to 1dps (1 degree per second)
 
-            ax= (ax / accel_scale) * 9.80665
+            ax= (ax / accel_scale) * 9.80665 #(g to m/s2)
             ay= (ay / accel_scale) * 9.80665
             az= (az / accel_scale) * 9.80665
 
-            gx= math.radians(gx / gyro_scale)
+            gx= math.radians(gx / gyro_scale) #(degree to radians per sec)
             gy= math.radians(gy / gyro_scale)
             gz= math.radians(gz / gyro_scale)
 
