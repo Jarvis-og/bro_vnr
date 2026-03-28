@@ -16,7 +16,7 @@ class MapWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("🏢 BRO - Multi-Floor Indoor Navigation")
         self.resize(1100, 900)  
-
+        #aryan is teaching me github and i am learning it.
         # --- Vertical Connections ---
         self.VERTICAL_CONNECTIONS = {
             "STAIRDOWNABC3": {"to_node": "STAIR UP2", "cost": 30.0},
