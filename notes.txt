@@ -1,0 +1,12 @@
+# for face recognition with insightface
+pip install opencv-python onnxruntime-gpu insightface
+
+# for face recognition with deepface
+pip install deepface tf-keras opencv-python fastapi uvicorn
+
+# to access webcam in react
+npm install react-webcam
+
+# fastapi setup
+pip install "fastapi[standard]"
+
