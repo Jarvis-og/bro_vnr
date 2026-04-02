@@ -1,6 +1,7 @@
 import os
 import shutil
 from fastapi import HTTPException
+from controllers.faceRecog import precompute_db
 
 DB_PATH = "./my_db" 
 if not os.path.exists(DB_PATH):
@@ -27,6 +28,8 @@ async def upload(password, person_name, files):
         # Optional: If you are using a Vector DB or InsightFace, 
         # call your sync function here to update the 'known faces' in RAM
         # sync_database() 
+
+        precompute_db()
 
         return {
             "success": True, 
