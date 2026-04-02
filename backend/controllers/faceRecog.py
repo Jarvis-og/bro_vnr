@@ -70,7 +70,7 @@ async def face_verification(file):
 
     try:
         # 1. Get embedding of current frame (only 1 AI run)
-        target_obj = DeepFace.represent(img_path=enhanced_frame, model_name=MODEL_NAME, enforce_detection=False)
+        target_obj = DeepFace.represent(img_path=enhanced_frame, model_name=MODEL_NAME, enforce_detection=True)
         
         if not target_obj:
             return {"success": False, "name": "No face detected"}
@@ -90,8 +90,8 @@ async def face_verification(file):
         print(f"Top Match: {KNOWN_NAMES[best_idx]} with Score: {high_score:.4f}")
 
         # 4. Threshold Logic
-        # VGG-Face is accurate above 0.70. If it's below this, it's a 'Wrong Person' guess.
-        if high_score > 0.70: 
+        # VGG-Face is accurate above 0.65. If it's below this, it's a 'Wrong Person' guess.
+        if high_score > 0.65: 
             return {"success": True, "faces": [{"name": KNOWN_NAMES[best_idx], "confidence": float(high_score)}]}
         
         return {"success": False, "faces": [], "message": "Unknown person"}
