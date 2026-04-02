@@ -3,3 +3,5 @@ notes.txt
 __pycache__/
 .vscode/
 node_modules/
+backend/my_db/
+temp_frame.jpg

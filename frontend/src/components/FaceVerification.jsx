@@ -30,7 +30,7 @@ const FaceVerification = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             capture();
-        }, 3000);
+        }, 2000);
         return () => clearInterval(interval);
     }, [capture, user]);
 
@@ -56,7 +56,7 @@ const FaceVerification = () => {
                 className="m-auto rotate-y-180"
             />
             {user &&
-                <h2 className="font-bold text-2xl" >{getGreeting()} {user.split("_" ?? " ").slice(0, -1).join(" ")}</h2>
+                <h2 className="font-bold text-2xl" >{getGreeting()} {user}</h2>
             }
         </div>
     )
