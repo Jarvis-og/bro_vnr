@@ -2,5 +2,4 @@ venv/
 __pycache__/
 .vscode/
 node_modules/
-backend/my_db
 backend/temp_frame.jpg
