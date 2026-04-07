@@ -77,22 +77,22 @@ def generate_launch_description():
             parameters=[params_file]
         ),
 
-        # Costmaps
-        Node(
-            package='nav2_costmap_2d',
-            executable='costmap_2d',
-            name='local_costmap',
-            output='screen',
-            parameters=[params_file]
-        ),
+        # # Costmaps
+        # Node(
+        #     package='nav2_costmap_2d',
+        #     executable='nav2_costmap_2d',
+        #     name='local_costmap',
+        #     output='screen',
+        #     parameters=[params_file]
+        # ),
 
-        Node(
-            package='nav2_costmap_2d',
-            executable='costmap_2d',
-            name='global_costmap',
-            output='screen',
-            parameters=[params_file]
-        ),
+        # Node(
+        #     package='nav2_costmap_2d',
+        #     executable='nav2_costmap_2d',
+        #     name='global_costmap',
+        #     output='screen',
+        #     parameters=[params_file]
+        # ),
 
         # Lifecycle Manager
         Node(
@@ -109,8 +109,8 @@ def generate_launch_description():
                     'planner_server',
                     'controller_server',
                     'bt_navigator',
-                    'local_costmap',
-                    'global_costmap'
+                    # 'local_costmap',
+                    # 'global_costmap',
                     'behavior_server',
                     'smoother_server',
                     'waypoint_follower',
