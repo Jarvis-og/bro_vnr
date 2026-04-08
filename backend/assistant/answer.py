@@ -18,18 +18,22 @@ def query_and_answer(question, db_path="./chroma_db", n_results=3, model="qwen2.
     """Query ChromaDB and generate answer with Ollama"""
     
     print(f"→ Loading embedding model...")
+    print(f"Torch version: {torch.__version__}")
+    print(f"CUDA Enable: {torch.cuda.is_available()}")
+    print(f"CUDA Version: {torch.version.cuda}")
     try:
+        torch.cuda.empty_cache()
         embedding_model = SentenceTransformer(
             model_path,
             trust_remote_code=True,
             device='cuda'
         )
-        print(f"torch version: {torch.__version__}")
+        
         embedding_model.max_seq_length = 8192
         print("✓ Model loaded on CUDA")
     except Exception as e:
         print(f"⚠ CUDA not available, using CPU: {e}")
-        print(f"torch version: {torch.__version__}")
+        # print(f"torch version: {torch.__version__}")
         embedding_model = SentenceTransformer(
             model_path,
             trust_remote_code=True
