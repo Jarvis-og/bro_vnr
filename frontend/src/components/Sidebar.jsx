@@ -8,7 +8,7 @@ const Sidebar = () => {
         <button className='bg-white p-16 rounded-2xl cursor-pointer text-xl font-bold'>Assistant</button>
       </NavLink>
       <NavLink to="/navigation">
-        <button className='bg-white p-16 rounded-2xl cursor-pointer text-xl font-bold'>Navigate</button>
+        <button className='bg-white p-16 rounded-2xl cursor-pointer text-xl font-bold'>Navigation</button>
       </NavLink>
       <NavLink to="/admin">
         <button className='bg-white p-16 rounded-2xl cursor-pointer text-xl font-bold'>Admin</button>

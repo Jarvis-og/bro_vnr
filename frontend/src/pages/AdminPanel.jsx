@@ -9,6 +9,7 @@ const AdminPanel = () => {
   // State for Authentication
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [adminPassInput, setAdminPassInput] = useState('');
+  const [uploadingImages, setUploadingImages] = useState(false);
 
   // State for Enrollment
   const [personName, setPersonName] = useState('');
@@ -51,11 +52,14 @@ const AdminPanel = () => {
     });
 
     try {
+      setUploadingImages(true);
       const res = await axios.post("http://localhost:8000/admin/upload", formData);
       alert(res.data.message);
       setCapturedPhotos([]);
     } catch (err) {
       alert("Error: " + (err.response?.data?.detail || "Server error"));
+    } finally {
+      setUploadingImages(false);
     }
   };
 
@@ -127,7 +131,7 @@ const AdminPanel = () => {
 
       <button
         onClick={handleUpload}
-        disabled={capturedPhotos.length === 0}
+        disabled={capturedPhotos.length === 0 || uploadingImages}
         className={`p-3 rounded-lg w-full max-w-xs cursor-pointer ${capturedPhotos.length === 0 ? 'bg-gray-300' : 'bg-blue-700 text-white'}`}
       >
         Upload All Photos to Server

@@ -1,0 +1,13 @@
+/* frontend/src/components/indoorMap/indoormap.css */
+.room-label {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    font-size: 10px;
+    font-weight: 500;
+    color: #064e3b;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8),
+                -1px -1px 0px rgba(255, 255, 255, 0.8),
+                 1px -1px 0px rgba(255, 255, 255, 0.8),
+                -1px  1px 0px rgba(255, 255, 255, 0.8);
+}

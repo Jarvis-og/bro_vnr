@@ -4,6 +4,7 @@ from fastapi import Form
 
 from controllers.faceRecog import face_verification
 from controllers.uploadImg import upload
+from mapFiles.nav_controller import router as nav_router
 
 app = FastAPI()
 
@@ -12,6 +13,7 @@ app.add_middleware(
     allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
+    allow_credentials=True,
 )
 
 @app.post("/verify")
@@ -27,3 +29,5 @@ async def upload_photos(
 ):
     response = await upload(password, person_name, files)
     return response
+
+app.include_router(nav_router)
