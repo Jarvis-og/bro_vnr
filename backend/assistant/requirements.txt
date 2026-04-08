@@ -1,0 +1,16 @@
+# Core RAG requirements
+chromadb==0.4.24
+sentence-transformers==2.5.1
+numpy<2.0
+huggingface-hub>=0.34.0,<1.0
+einops
+
+# LLM Interface
+qwen2.5
+
+# Hardware Acceleration
+# Note: Ensure you install the CUDA version of torch separately 
+# if you want GPU support for embeddings, otherwise this installs the standard version.
+torch
+torchvision
+torchaudio

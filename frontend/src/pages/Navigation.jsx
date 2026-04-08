@@ -1,6 +1,6 @@
 // frontend/src/pages/navigation.jsx
 import { useState } from 'react';
-import IndoorMap from '../components/indoorMap/indoormap';
+import IndoorMap from '../components/IndoorMap/IndoorMap.jsx';
 import { useNavigation } from '../components/IndoorMap/useNavigation.js';
 import { Link } from 'react-router-dom';
 
