@@ -3,5 +3,3 @@ __pycache__/
 .vscode/
 node_modules/
 backend/temp_frame.jpg
-backend/assistant/chroma_db/chroma.sqlite3
-backend/assistant/chroma_db/bdbd1b0d-03e6-430c-aa28-a24678453832/length.bin
