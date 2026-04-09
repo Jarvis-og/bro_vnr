@@ -1,43 +1,74 @@
 // frontend/src/components/indoorMap/indoormap.jsx
-import { MapContainer, GeoJSON, useMap } from 'react-leaflet';
+import { MapContainer, GeoJSON, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react'; // <-- Add useMemo here
 import './indoormap.css';
+
+const LABEL_ZOOM_THRESHOLD = -14; 
 
 function MapController({ bounds }) {
     const map = useMap();
     useEffect(() => {
         if (bounds && bounds.isValid()) {
-            map.fitBounds(bounds);
-            map.zoomIn(1);
+            map.fitBounds(bounds, { padding: [20, 20] });
         }
-    }, [map, bounds]);
+    }, [map, bounds]); // Because bounds is memoized, this now only runs ONCE.
+    return null;
+}
+
+function ZoomHandler() {
+    const map = useMapEvents({
+        zoomend: () => {
+            const currentZoom = map.getZoom();
+            const container = map.getContainer();
+            if (currentZoom <= LABEL_ZOOM_THRESHOLD) {
+                container.classList.add('hide-labels');
+            } else {
+                container.classList.remove('hide-labels');
+            }
+        }
+    });
+
+    useEffect(() => {
+        if (map.getZoom() <= LABEL_ZOOM_THRESHOLD) {
+            map.getContainer().classList.add('hide-labels');
+        }
+    }, [map]);
+
     return null;
 }
 
 export default function IndoorMap({ mapData, path, onRoomClick }) {
     if (!mapData) return <div>Loading map...</div>;
 
-    const bounds = L.geoJSON(mapData.rooms).getBounds();
+    // useMemo stops the map from recalculating its size on every single click
+    const bounds = useMemo(() => {
+        return L.geoJSON(mapData.rooms).getBounds().pad(0.05);
+    }, [mapData]);
 
     return (
         <MapContainer
             crs={L.CRS.Simple}
             bounds={bounds}
-            minZoom={-10}
+            minZoom={-16} // Stops it from zooming out into infinity
             maxZoom={5}
+            maxBounds={bounds} // Keeps the panning locked to your building
+            maxBoundsViscosity={1.0} 
+            attributionControl={false} 
             style={{ height: '100%', width: '100%', backgroundColor: '#ffffff' }}
             scrollWheelZoom
         >
             <MapController bounds={bounds} />
+            <ZoomHandler />
 
             <GeoJSON
                 data={mapData.rooms}
                 style={{ color: '#7c3aed', fillColor: '#ede9fe', fillOpacity: 0.5, weight: 1 }}
                 onEachFeature={(feature, layer) => {
-                    const id = feature.properties.ABC1ROOMS;
-                    if (id) {
+                    const rawId = feature.properties.ABC1ROOMS;
+                    if (rawId) {
+                        const id = String(rawId).replace(/\s+/g, '');
                         layer.bindTooltip(id, { 
                             permanent: true, 
                             direction: 'center',
