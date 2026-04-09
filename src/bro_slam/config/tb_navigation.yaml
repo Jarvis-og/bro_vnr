@@ -22,7 +22,7 @@ controller_server:
     enable_stamped_cmd_vel: true
     controller_frequency: 20.0
     min_x_velocity_threshold: 0.001
-    min_y_velocity_threshold: 0.5
+    min_y_velocity_threshold: 0.0
     min_theta_velocity_threshold: 0.001
     failure_tolerance: 0.3
     progress_checker_plugins: ["progress_checker"]
@@ -57,8 +57,8 @@ controller_server:
       iteration_count: 1
       prune_distance: 1.7
       transform_tolerance: 0.1
-      temperature: 0.3
-      gamma: 0.015
+      temperature: 0.5
+      gamma: 0.02
       motion_model: "DiffDrive"
       visualize: true
       regenerate_noises: true
@@ -93,7 +93,7 @@ controller_server:
       CostCritic:
         enabled: true
         cost_power: 1
-        cost_weight: 3.81
+        cost_weight: 5.0
         critical_cost: 300.0
         consider_footprint: true
         collision_cost: 1000000.0
@@ -127,8 +127,8 @@ local_costmap:
   local_costmap:
     ros__parameters:
       enable_stamped_cmd_vel: true
-      update_frequency: 5.0
-      publish_frequency: 2.0
+      update_frequency: 10.0
+      publish_frequency: 5.0
       global_frame: odom
       robot_base_frame: base_link
       rolling_window: true
@@ -142,8 +142,8 @@ local_costmap:
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 4.0
-        inflation_radius: 0.45
+        cost_scaling_factor: 6.0
+        inflation_radius: 0.20
       # voxel_layer:  # For 3d obstacle representation, but it is computationally expensive and may not be necessary for a small robots.
       #   plugin: "nav2_costmap_2d::VoxelLayer"
       #   enabled: true
@@ -169,14 +169,15 @@ local_costmap:
         enabled: true
         observation_sources: scan
         scan:
-          topic: scan
+          topic: /scan
           max_obstacle_height: 2.0
           clearing: true
           marking: true
+          observation_persistence: 0.5
           data_type: "LaserScan"
-          raytrace_max_range: 3.0
+          raytrace_max_range: 4.0
           raytrace_min_range: 0.0
-          obstacle_max_range: 2.5
+          obstacle_max_range: 3.5
           obstacle_min_range: 0.0
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
@@ -203,7 +204,7 @@ global_costmap:
         enabled: true
         observation_sources: scan
         scan:
-          topic: scan
+          topic: /scan
           max_obstacle_height: 2.0
           clearing: true
           marking: true
@@ -217,8 +218,8 @@ global_costmap:
         map_subscribe_transient_local: true
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 4.0
-        inflation_radius: 0.45
+        cost_scaling_factor: 6.0
+        inflation_radius: 0.20
       always_send_full_costmap: true
 
 planner_server:
@@ -324,7 +325,7 @@ collision_monitor:
     observation_sources: ["scan"]
     scan:
       type: "scan"
-      topic: "scan"
+      topic: "/scan"
       min_height: 0.15
       max_height: 2.0
       enabled: True
