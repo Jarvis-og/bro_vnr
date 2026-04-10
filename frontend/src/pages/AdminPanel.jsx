@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Webcam from 'react-webcam';
 import axios from 'axios';
 
+const RAG_API = "http://localhost:8000";
+
 const AdminPanel = () => {
   const webcamRef = useRef(null);
 
@@ -14,6 +16,12 @@ const AdminPanel = () => {
   // State for Enrollment
   const [personName, setPersonName] = useState('');
   const [capturedPhotos, setCapturedPhotos] = useState([]);
+
+  // State for RAG controls
+  const [setupStatus, setSetupStatus] = useState(null);   // null | 'loading' | 'success' | 'error'
+  const [setupMsg, setSetupMsg]     = useState('');
+  const [ingestStatus, setIngestStatus] = useState(null);
+  const [ingestMsg, setIngestMsg]   = useState('');
 
   // 1. Simple Access Check
   const handleLogin = (e) => {
@@ -60,6 +68,33 @@ const AdminPanel = () => {
       alert("Error: " + (err.response?.data?.detail || "Server error"));
     } finally {
       setUploadingImages(false);
+    }
+  };
+
+  // RAG handlers
+  const handleSetup = async () => {
+    setSetupStatus('loading');
+    setSetupMsg('');
+    try {
+      const res = await axios.post(`${RAG_API}/setup`);
+      setSetupStatus('success');
+      setSetupMsg(res.data.message);
+    } catch (err) {
+      setSetupStatus('error');
+      setSetupMsg(err.response?.data?.detail || 'Setup failed');
+    }
+  };
+
+  const handleIngest = async () => {
+    setIngestStatus('loading');
+    setIngestMsg('');
+    try {
+      const res = await axios.post(`${RAG_API}/ingest`);
+      setIngestStatus('success');
+      setIngestMsg(res.data.message);
+    } catch (err) {
+      setIngestStatus('error');
+      setIngestMsg(err.response?.data?.detail || 'Ingestion failed');
     }
   };
 
@@ -136,6 +171,60 @@ const AdminPanel = () => {
       >
         Upload All Photos to Server
       </button>
+
+      {/* ── RAG Knowledge Base Section ── */}
+      <div className="mt-10 border-t pt-8">
+        <h3 className="text-lg font-bold mb-1">Knowledge Base</h3>
+        <p className="text-sm text-gray-500 mb-6">Set up and populate the RAG vector database</p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md m-auto">
+
+          {/* Setup DB */}
+          <div className="flex-1 border rounded-lg p-4 text-left">
+            <p className="text-sm font-semibold mb-1">Step 1 · Setup Database</p>
+            <p className="text-xs text-gray-400 mb-3">Initialize ChromaDB collection</p>
+            <button
+              onClick={handleSetup}
+              disabled={setupStatus === 'loading'}
+              className={`w-full p-2 rounded text-sm font-medium cursor-pointer transition-colors
+                ${setupStatus === 'loading'
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'bg-gray-800 text-white hover:bg-gray-700'}`}
+            >
+              {setupStatus === 'loading' ? 'Running…' : 'Run Setup'}
+            </button>
+            {setupMsg && (
+              <p className={`mt-2 text-xs ${setupStatus === 'success' ? 'text-green-600' : 'text-red-500'}`}>
+                {setupStatus === 'success' ? '✓ ' : '✗ '}{setupMsg}
+              </p>
+            )}
+          </div>
+
+          {/* Ingest */}
+          <div className="flex-1 border rounded-lg p-4 text-left">
+            <p className="text-sm font-semibold mb-1">Step 2 · Ingest Documents</p>
+            <p className="text-xs text-gray-400 mb-3">Embed files from the data folder</p>
+            <button
+              onClick={handleIngest}
+              disabled={ingestStatus === 'loading'}
+              className={`w-full p-2 rounded text-sm font-medium cursor-pointer transition-colors
+                ${ingestStatus === 'loading'
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'bg-gray-800 text-white hover:bg-gray-700'}`}
+            >
+              {ingestStatus === 'loading' ? 'Ingesting…' : 'Run Ingestion'}
+            </button>
+            {ingestMsg && (
+              <p className={`mt-2 text-xs ${ingestStatus === 'success' ? 'text-green-600' : 'text-red-500'}`}>
+                {ingestStatus === 'success' ? '✓ ' : '✗ '}{ingestMsg}
+              </p>
+            )}
+          </div>
+
+        </div>
+      </div>
+      {/* ── End RAG Section ── */}
+
     </div>
   );
 };
