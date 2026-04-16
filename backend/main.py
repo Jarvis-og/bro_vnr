@@ -81,43 +81,17 @@ def ingest():
  
 @app.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest):
-    import io
-    from contextlib import redirect_stdout
- 
-    # Capture stdout since answer.py prints the answer
-    buffer = io.StringIO()
-    try:
-        with redirect_stdout(buffer):
-            success = query_and_answer(
-                question=req.question,
-                db_path=DB_PATH,
-                n_results=req.top_k,
-                model=req.model,
-            )
- 
-        output = buffer.getvalue()
- 
-        if not success:
-            raise HTTPException(status_code=500, detail="Failed to generate answer.")
- 
-        # Extract the answer from stdout (everything after "ANSWER:\n----------------...")
-        answer = ""
-        if "ANSWER:" in output:
-            parts = output.split("ANSWER:")
-            raw = parts[-1]
-            # Strip the separator line
-            lines = raw.split("\n")
-            answer_lines = [l for l in lines if not set(l.strip()) <= {"-", "=", ""}  or l.strip() == ""]
-            answer = "\n".join(answer_lines).strip()
-        else:
-            answer = output.strip()
- 
-        return ChatResponse(answer=answer, success=True)
- 
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    answer = query_and_answer(
+        question=req.question,
+        db_path=DB_PATH,
+        n_results=req.top_k,
+        model=req.model,
+    )
+
+    if answer is None:
+        raise HTTPException(status_code=500, detail="Failed to generate answer.")
+
+    return ChatResponse(answer=answer, success=True)
  
  
 @app.get("/health")
