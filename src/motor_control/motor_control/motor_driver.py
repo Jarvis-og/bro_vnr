@@ -32,7 +32,7 @@ class Motor_Driver(Node):
         self.rx_thread.start()
 
         try:
-            self.ser.write("<RST>\n".encode())
+            self.ser.write("Reset\n".encode())
             self.get_logger().info("Encoder reset on startup")
             time.sleep(0.1)
         except Exception as e:
@@ -81,7 +81,7 @@ class Motor_Driver(Node):
     #Cleanup
     def destroy_node(self):
         try:
-            reset_cmd = "<RST>\n"   # or whatever protocol you define
+            reset_cmd = "Reset\n"   # or whatever protocol you define
             self.ser.write(reset_cmd.encode())
             self.get_logger().info("Sent encoder reset command")
 
