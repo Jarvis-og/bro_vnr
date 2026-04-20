@@ -31,6 +31,13 @@ class Motor_Driver(Node):
         self.rx_thread.daemon= True
         self.rx_thread.start()
 
+        try:
+            self.ser.write("<RST>\n".encode())
+            self.get_logger().info("Encoder reset on startup")
+            time.sleep(0.1)
+        except Exception as e:
+            self.get_logger().warn(f"Startup reset failed: {e}")
+
         self.get_logger().info('STM32 Motor Driver Started')
     
     #CMD_VEL
@@ -73,6 +80,16 @@ class Motor_Driver(Node):
 
     #Cleanup
     def destroy_node(self):
+        try:
+            reset_cmd = "<RST>\n"   # or whatever protocol you define
+            self.ser.write(reset_cmd.encode())
+            self.get_logger().info("Sent encoder reset command")
+
+            time.sleep(0.1)  # small delay to ensure STM32 processes it
+
+        except Exception as e:
+            self.get_logger().warn(f"Failed to send reset: {e}")
+
         self.running= False
         self.rx_thread.join(timeout= 1.0)
         #self.ser.write("Reset")
