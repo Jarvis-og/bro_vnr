@@ -39,6 +39,7 @@ class Motor_Driver(Node):
         try:
             self.ser.write(cmd.encode())
         except Exception as e:
+            self.ser.write("Reset")
             self.get_logger().error(f"Serial Failed: {e}")
 
     #Serial RX
@@ -74,7 +75,7 @@ class Motor_Driver(Node):
     def destroy_node(self):
         self.running= False
         self.rx_thread.join(timeout= 1.0)
-        self.ser.write("Reset")
+        #self.ser.write("Reset")
         self.ser.close()
         super().destroy_node()
 

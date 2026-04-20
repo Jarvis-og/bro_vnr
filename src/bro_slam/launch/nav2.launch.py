@@ -9,7 +9,7 @@ def generate_launch_description():
 
     pkg= get_package_share_directory("bro_slam")
     use_sim_time = LaunchConfiguration('use_sim_time')
-    map_yaml_file = os.path.join(pkg, "maps", "DSP_Corridor_map.yaml")
+    map_yaml_file = os.path.join(pkg, "maps", "DSP_to_p223_map.yaml")
     params_file =  os.path.join(pkg, "config", "tb_navigation.yaml")
     amcl_file= os.path.join(pkg, "config", "tb_localization.yaml")
 
