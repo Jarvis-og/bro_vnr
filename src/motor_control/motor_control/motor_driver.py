@@ -74,6 +74,7 @@ class Motor_Driver(Node):
     def destroy_node(self):
         self.running= False
         self.rx_thread.join(timeout= 1.0)
+        self.ser.write("Reset")
         self.ser.close()
         super().destroy_node()
 
