@@ -3,6 +3,7 @@
 
 VNRVJIET Electrical and Electronics Engineering Infrastructure
 Below is the categorized information for the laboratories under the Department of Electrical and Electronics Engineering.
+There are 10 labs in the Department
 
 1. Network Analysis Laboratory
 Background: Provides the foundation for EEE, focusing on 3-phase and single-phase circuits. It is designed for active component analysis, including the design and testing of amplifiers and oscillators.

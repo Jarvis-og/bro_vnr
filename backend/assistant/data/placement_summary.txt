@@ -1,14 +1,3 @@
---- About EEE department ---
-
-ABOUT EEE (Electrical & Electronics Engineering) department -
-HOD (head of the department) - Dr.V. Ramesh Babu
-email of HOD - eeehead@vnrvjiet.in
-
-Every year there will be at least 130 students in the EEE department including the regular and lateral entry students.
-there are 41 faculty members in EEE departmenT
-
-The Department of Electrical & Electronics Engineering (EEE) offers U.G and P.G programs in Electrical Engineering Discipline. The department has a rich tradition of teaching and research and is widely recognized to be a pioneer in Electrical Engineering Education. The Department is recognized as a Research Centre in Electrical and Electronics Engineering. The research work in the department is vibrant with the support of eminent professors like Dr.M.Rama Moorthy, former Director General, CPRI taking a keen interest in guiding the faculty members. The research interests of the faculty members encompass a wide gamut of sub-disciplines of Electrical Engineering. The Department takes pride in its ability to nurture students who win gold medals at the university level consistently. We also take up the social responsibility of inculcating awareness about Energy Conservation by promoting programs about the same. Collaboration with industries for timely amendments of curriculum and laboratories is another credential of the department.
-
 --- 2023 placement symmary ---
 
 EEE Placements Summary – Year 2023
@@ -164,5 +153,3 @@ The financial outlook for graduates has also contracted, particularly regarding 
 ### ## Overall Summary
 
 The EEE department is currently in a **recessionary placement cycle**. While the "floor" for salaries is rising, the "ceiling" has fallen, and the total number of opportunities is shrinking. To reverse this, there is a clear mandate to pivot toward EV and automation training to attract higher-paying recruiters.
-
-Would you like me to create a year-over-year comparison table for specific metrics like the highest-to-average salary ratio?

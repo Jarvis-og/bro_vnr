@@ -104,134 +104,12 @@ export default function Assistant() {
           font-family: 'DM Sans', sans-serif;
         }
 
-        /* ── Sidebar ── */
-        .chat-sidebar {
-          width: 230px;
-          flex-shrink: 0;
-          background: #1a1a24;
-          display: flex;
-          flex-direction: column;
-          padding: 28px 20px;
-          border-right: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .sidebar-logo {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 36px;
-        }
-
-        .logo-mark {
-          width: 38px;
-          height: 38px;
-          background: linear-gradient(135deg, #6366f1, #8b5cf6);
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-family: 'Instrument Serif', serif;
-          font-size: 1.1rem;
-          color: white;
-          flex-shrink: 0;
-        }
-
-        .logo-text strong {
-          display: block;
-          font-size: 0.85rem;
-          font-weight: 600;
-          color: #e8e8f0;
-          line-height: 1.2;
-        }
-
-        .logo-text span {
-          display: block;
-          font-size: 0.72rem;
-          color: #5a5a72;
-        }
-
-        .nav-label {
-          font-size: 0.65rem;
-          letter-spacing: 0.15em;
-          color: #3a3a50;
-          font-weight: 600;
-          margin-bottom: 10px;
-          font-family: 'JetBrains Mono', monospace;
-        }
-
-        .sidebar-nav {
-          flex: 1;
-        }
-
-        .nav-item {
-          display: block;
-          width: 100%;
-          text-align: left;
-          background: none;
-          border: none;
-          color: #6b6b84;
-          font-family: 'DM Sans', sans-serif;
-          font-size: 0.82rem;
-          padding: 8px 10px;
-          border-radius: 6px;
-          cursor: pointer;
-          transition: all 0.15s;
-          margin-bottom: 2px;
-        }
-
-        .nav-item:hover {
-          background: rgba(99,102,241,0.1);
-          color: #a5b4fc;
-        }
-
-        .sidebar-footer {
-          display: flex;
-          align-items: center;
-          gap: 7px;
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 0.68rem;
-          color: #3a3a50;
-        }
-
-        .dot {
-          width: 6px;
-          height: 6px;
-          background: #34d399;
-          border-radius: 50%;
-          flex-shrink: 0;
-          box-shadow: 0 0 6px #34d399;
-        }
-
         /* ── Main ── */
         .chat-main {
           flex: 1;
           display: flex;
           flex-direction: column;
           overflow: hidden;
-        }
-
-        .chat-header {
-          padding: 18px 32px;
-          border-bottom: 1px solid #e8e6e0;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          background: #faf9f7;
-        }
-
-        .header-title {
-          font-family: 'Instrument Serif', serif;
-          font-size: 1.2rem;
-          color: #1a1a24;
-        }
-
-        .header-model {
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 0.72rem;
-          color: #999;
-          background: #f0ede6;
-          padding: 4px 10px;
-          border-radius: 20px;
         }
 
         /* ── Messages ── */
@@ -430,19 +308,6 @@ export default function Assistant() {
           cursor: not-allowed;
         }
 
-        .input-hint {
-          margin-top: 8px;
-          font-size: 0.72rem;
-          color: #bbb;
-          font-family: 'JetBrains Mono', monospace;
-          text-align: center;
-        }
-
-        @media (max-width: 640px) {
-          .chat-sidebar { display: none; }
-          .messages-area { padding: 20px 16px; }
-          .input-area { padding: 12px 16px 16px; }
-        }
       `}</style>
     </div>
   );

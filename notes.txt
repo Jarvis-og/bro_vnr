@@ -10,3 +10,7 @@ npm install react-webcam
 # fastapi setup
 pip install "fastapi[standard]"
 
+fixes ----
+1. setup and ingest from admin
+2. folder structure and redundant code
+3. styles
