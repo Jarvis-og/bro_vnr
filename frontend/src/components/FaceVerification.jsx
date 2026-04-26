@@ -53,7 +53,7 @@ const FaceVerification = () => {
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
                 width={480}
-                className="m-auto rotate-y-180"
+                className="m-auto rotate-y-180 mt-8"
             />
             {user &&
                 <h2 className="font-bold text-2xl" >{getGreeting()} {user}</h2>

@@ -28,7 +28,7 @@ function App() {
   ])
 
   return (
-    <div className="flex h-screen font-mono">
+    <div className="flex h-screen">
       <RouterProvider router={router} />
     </div>
   );

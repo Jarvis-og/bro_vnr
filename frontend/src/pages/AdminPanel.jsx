@@ -19,9 +19,9 @@ const AdminPanel = () => {
 
   // State for RAG controls
   const [setupStatus, setSetupStatus] = useState(null);   // null | 'loading' | 'success' | 'error'
-  const [setupMsg, setSetupMsg]     = useState('');
+  const [setupMsg, setSetupMsg] = useState('');
   const [ingestStatus, setIngestStatus] = useState(null);
-  const [ingestMsg, setIngestMsg]   = useState('');
+  const [ingestMsg, setIngestMsg] = useState('');
 
   // 1. Simple Access Check
   const handleLogin = (e) => {
@@ -101,28 +101,23 @@ const AdminPanel = () => {
   // --- VIEW 1: LOGIN SCREEN ---
   if (!isAuthenticated) {
     return (
-      <>
-        <Link to="/">
-          <button className="cursor-pointer text-2xl font-bold m-2">{`<`}</button>
-        </Link>
-        <div className="flex flex-col items-center justify-center h-screen w-3/4">
-          <div className="p-8 bg-white shadow-lg rounded-lg">
-            <h2 className="text-2xl font-bold mb-4">Admin Login</h2>
-            <form onSubmit={handleLogin} className="flex flex-col gap-4">
-              <input
-                type="password"
-                placeholder="Enter Admin Password"
-                className="border p-2 rounded"
-                value={adminPassInput}
-                onChange={e => setAdminPassInput(e.target.value)}
-              />
-              <button type="submit" className="bg-blue-600 text-white p-2 rounded cursor-pointer">
-                Access Admin Panel
-              </button>
-            </form>
-          </div>
+      <div className="flex flex-col items-center justify-center h-screen w-3/4">
+        <div className="p-8 bg-white shadow-lg rounded-lg">
+          <h2 className="text-2xl font-bold mb-4">Admin Login</h2>
+          <form onSubmit={handleLogin} className="flex flex-col gap-4">
+            <input
+              type="password"
+              placeholder="Enter Admin Password"
+              className="border p-2 rounded"
+              value={adminPassInput}
+              onChange={e => setAdminPassInput(e.target.value)}
+            />
+            <button type="submit" className="bg-blue-600 text-white p-2 rounded cursor-pointer">
+              Access Admin Panel
+            </button>
+          </form>
         </div>
-      </>
+      </div>
     );
   }
 

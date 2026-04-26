@@ -135,7 +135,7 @@ def query_and_answer(question, db_path="./chroma_db", n_results=3, model="smollm
 
     # Step 4: Build simplified prompt (suitable for small models)
     prompt = f"""You are a helpful assistant for VNR VJIET EEE department students.
-    Answer the questions briefly and from the provided context only.
+    Answer the questions shortly and precisely based on the question and context.
     Use the context below to answer the question. If the answer is not in the context, say "I don't know."
 
     Context:
