@@ -9,7 +9,7 @@ const Sidebar = () => {
   const linkClass = "cursor-pointer text-4xl bg-white rounded-full p-6 shadow-2xl";
   return (
     <div className='w-1/4 bg-slate-200  flex flex-col justify-between items-center'>
-      <div className='my-16 flex flex-col items-center justify-between flex-1'>
+      <div className='my-16 flex flex-col items-center justify-around flex-1'>
         <NavLink to="/">
           <button className={linkClass}><FaHome /></button>
         </NavLink>
@@ -21,7 +21,7 @@ const Sidebar = () => {
         </NavLink>
       </div>
       <NavLink to="/admin" className="w-full text-center bg-slate-300">
-        <button className='rounded-2xl my-2 cursor-pointer text-lg font-bold'>Are you Admin?</button>
+        <button className='rounded-2xl my-2 cursor-pointer'>Are you Admin?</button>
       </NavLink>
     </div>
   )

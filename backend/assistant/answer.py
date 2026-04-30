@@ -18,6 +18,7 @@ def print_ram():
 # ── Load models once at module level (not inside the function) ──────────────
 
 normic_model = 'C:\\Users\\Aryan Sameer\\.cache\\huggingface\\hub\\models--nomic-ai--nomic-embed-text-v1.5\\snapshots\\e5cf08aadaa33385f5990def41f7a23405aec398'
+reranker_model = 'C:\\Users\\Aryan Sameer\\.cache\\huggingface\\hub\\models--cross-encoder--ms-marco-MiniLM-L-6-v2\\snapshots\\c5ee24cb16019beea0893ab7796b1df96625c6b8'
 
 print("→ Loading embedding model...")
 try:
@@ -38,11 +39,17 @@ except Exception as e:
 
 print("→ Loading reranker model...")
 try:
-    reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2', device='cuda')
+    reranker = CrossEncoder(
+        reranker_model,
+        device='cuda'
+    )
     print("✓ Reranker loaded on CUDA")
 except Exception as e:
     print(f"⚠ Reranker falling back to CPU: {e}")
-    reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2', device='cpu')
+    reranker = CrossEncoder(
+        reranker_model, 
+        device='cpu'
+    )
 
 # ── Ollama HTTP call (replaces subprocess) ──────────────────────────────────
 def call_ollama(prompt, model):

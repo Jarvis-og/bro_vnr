@@ -50,7 +50,7 @@ app.include_router(nav_router)
 class ChatRequest(BaseModel):
     question: str
     model: str = "qwen2.5:0.5b"
-    top_k: int = 5
+    top_k: int = 3
  
  
 class ChatResponse(BaseModel):
