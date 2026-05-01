@@ -9,6 +9,7 @@ import time
 
 import psutil
 import os
+import torch
 
 def print_ram():
     process = psutil.Process(os.getpid())
@@ -17,50 +18,52 @@ def print_ram():
 
 # ── Load models once at module level (not inside the function) ──────────────
 
-normic_model = 'C:\\Users\\Aryan Sameer\\.cache\\huggingface\\hub\\models--nomic-ai--nomic-embed-text-v1.5\\snapshots\\e5cf08aadaa33385f5990def41f7a23405aec398'
-reranker_model = 'C:\\Users\\Aryan Sameer\\.cache\\huggingface\\hub\\models--cross-encoder--ms-marco-MiniLM-L-6-v2\\snapshots\\c5ee24cb16019beea0893ab7796b1df96625c6b8'
+normic_model = '/home/bro/.cache/huggingface/hub/models--nomic-ai--nomic-embed-text-v1.5/snapshots/e5cf08aadaa33385f5990def41f7a23405aec398'
+reranker_model = '/home/bro/.cache/huggingface/hub/models--cross-encoder--ms-marco-MiniLM-L-6-v2/snapshots/c5ee24cb16019beea0893ab7796b1df96625c6b8'
 
 print("→ Loading embedding model...")
-try:
-    embedding_model = SentenceTransformer(
-        normic_model,
-        trust_remote_code=True,
-        device='cuda'
-    )
-    embedding_model.max_seq_length = 8192
-    print_ram()
-    print("✓ Embedding model loaded on CUDA")
-except Exception as e:
-    print(f"⚠ CUDA not available, using CPU: {e}")
-    embedding_model = SentenceTransformer(
-        normic_model,
-        trust_remote_code=True
-    )
+# try:
+embedding_model = SentenceTransformer(
+    normic_model,
+    trust_remote_code=True,
+    device='cpu'
+)
+embedding_model.max_seq_length = 8192
+print_ram()
+print("✓ Embedding model loaded on CUDA")
+# except Exception as e:
+#     print(f"⚠ CUDA not available, using CPU: {e}")
+#     embedding_model = SentenceTransformer(
+#         normic_model,
+#         trust_remote_code=True,
+#         device='cpu'
+#     )
 
 print("→ Loading reranker model...")
-try:
-    reranker = CrossEncoder(
-        reranker_model,
-        device='cuda'
-    )
-    print("✓ Reranker loaded on CUDA")
-except Exception as e:
-    print(f"⚠ Reranker falling back to CPU: {e}")
-    reranker = CrossEncoder(
-        reranker_model, 
-        device='cpu'
-    )
+# try:
+reranker = CrossEncoder(
+    reranker_model,
+    device='cpu'
+)
+print("✓ Reranker loaded on CUDA")
+# except Exception as e:
+    # print(f"⚠ Reranker falling back to CPU: {e}")
+    # reranker = CrossEncoder(
+        # reranker_model, 
+        # device='cpu'
+    # )
 
 # ── Ollama HTTP call (replaces subprocess) ──────────────────────────────────
 def call_ollama(prompt, model):
     try:
+        torch.cuda.empty_cache
         response = requests.post(
             "http://localhost:11434/api/generate",
             json={
                 "model": model,
                 "prompt": prompt,
                 "stream": False,
-                "options": {"num_ctx": 2048}
+                "options": {"num_ctx": 1024}
             },
             timeout=60
         )
@@ -99,7 +102,7 @@ def query_and_answer(question, db_path="./chroma_db", n_results=3, model="smollm
         print(f"✓ Connected to collection with {collection.count()} documents")
     except Exception as e:
         print("✗ Error: Collection not found. Run setup.py first.")
-        return False
+        return None
 
     # Step 1: Fetch more candidates than needed for reranking
     fetch_k = max(n_results * 3, 10)
@@ -111,7 +114,7 @@ def query_and_answer(question, db_path="./chroma_db", n_results=3, model="smollm
 
     if not results['documents'][0]:
         print("✗ No relevant documents found")
-        return False
+        return None
 
     # Step 2: Rerank using cross-encoder
     print("→ Reranking chunks...")
@@ -159,7 +162,7 @@ def query_and_answer(question, db_path="./chroma_db", n_results=3, model="smollm
     answer = call_ollama(prompt, model)
 
     if answer is None:
-        return False
+        return None
 
     print("ANSWER:")
     print("-" * 80)

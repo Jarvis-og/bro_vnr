@@ -48,7 +48,7 @@ def run_folder_ingestion(folder_path="./data", db_path="./chroma_db"):
         raw_text = extract_text(file_path)
         if raw_text:
             # Simple chunking logic (can be refined)
-            chunks = [raw_text[i:i+1000] for i in range(0, len(raw_text), 900)]
+            chunks = [raw_text[i:i+450] for i in range(0, len(raw_text), 300)]
             embeddings = model.encode(chunks)
             
             ids = [f"{filename}_{i}" for i in range(len(chunks))]
