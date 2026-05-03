@@ -1,5 +1,4 @@
 import React from 'react'
-import FaceVerification from "../components/FaceVerification"
 
 const Home = () => {
     return (

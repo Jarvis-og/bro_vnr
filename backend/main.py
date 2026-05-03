@@ -6,12 +6,12 @@ from pydantic import BaseModel
 
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import Form
+from fastapi import Form, Query
 
 from mapFiles.nav_controller import router as nav_router
  
 from assistant.setup import setup_database
-from assistant.ingest import run_folder_ingestion
+from assistant.ingest import run_folder_ingestion, list_knowledge_base_files
 from assistant.answer import query_and_answer
  
 sys.path.append(os.path.join(os.path.dirname(__file__), "assistant"))
@@ -33,7 +33,7 @@ app.include_router(nav_router)
 
 class ChatRequest(BaseModel):
     question: str
-    model: str = "smollm2:360m"
+    model: str = "qwen2.5:0.5b"
     top_k: int = 2
  
  
@@ -55,10 +55,23 @@ def setup():
  
  
 @app.post("/ingest")
-def ingest():
+def ingest(force_rebuild: bool = Query(default=False)):
     try:
-        run_folder_ingestion(folder_path=DATA_PATH, db_path=DB_PATH)
-        return {"success": True, "message": "Documents ingested successfully."}
+        result = run_folder_ingestion(
+            folder_path=DATA_PATH,
+            db_path=DB_PATH,
+            force_rebuild=force_rebuild,
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/knowledgebase/files")
+def knowledgebase_files():
+    try:
+        files = list_knowledge_base_files(folder_path=DATA_PATH)
+        return {"success": True, "files": files}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
  

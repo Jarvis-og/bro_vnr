@@ -54,7 +54,10 @@ export default function NavigationPage() {
 
         {error && <p style={{ color: 'red' }} className="mx-4">{error}</p>}
 
-        <img src="VNR_CAMPUS_MAP.png" alt="QR" className='p-4 mt-auto' />
+        <div className='p-4 mt-auto'>
+          <p>Scan to access the map in your mobile</p>
+          <img src="VNR_CAMPUS_MAP.png" alt="QR" />
+        </div>
       </aside>
 
       <main className="flex-1 h-full w-full">

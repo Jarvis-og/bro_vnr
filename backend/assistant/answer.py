@@ -18,8 +18,8 @@ def print_ram():
 
 # ── Load models once at module level (not inside the function) ──────────────
 
-normic_model = '/home/bro/.cache/huggingface/hub/models--nomic-ai--nomic-embed-text-v1.5/snapshots/e5cf08aadaa33385f5990def41f7a23405aec398'
-reranker_model = '/home/bro/.cache/huggingface/hub/models--cross-encoder--ms-marco-MiniLM-L-6-v2/snapshots/c5ee24cb16019beea0893ab7796b1df96625c6b8'
+normic_model = 'C:\\Users\\Aryan Sameer\\.cache\\huggingface\\hub\\models--nomic-ai--nomic-embed-text-v1.5\\snapshots\\e5cf08aadaa33385f5990def41f7a23405aec398'
+reranker_model = 'C:\\Users\\Aryan Sameer\\.cache\\huggingface\\hub\\models--cross-encoder--ms-marco-MiniLM-L-6-v2\\snapshots\\c5ee24cb16019beea0893ab7796b1df96625c6b8'
 
 print("→ Loading embedding model...")
 embedding_model = SentenceTransformer(
@@ -128,8 +128,10 @@ def query_and_answer(question, db_path="./chroma_db", n_results=3, model="smollm
 
     # Step 4: Build simplified prompt (suitable for small models)
     prompt = f"""You are a helpful assistant for VNR VJIET EEE department students.
-    Answer the questions shortly and precisely based on the question and context.
-    Use the context below to answer the question. If the answer is not in the context, say "I don't know."
+    Here are the rules to follow:
+    - Answer the questions shortly and precisely based on the question and context.
+    - Strictly use the context below to answer the question and If the answer is not in the context, say "I don't know."
+    - Dont make up information or make assumptions.
 
     Context:
     {context}

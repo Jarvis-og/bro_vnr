@@ -94,7 +94,7 @@ export default function Assistant() {
           </div>
         </div>
         <small className="text-center mb-2">
-          EEE-GPT is an AI and can make mistakes. Please consult department faculty for accurate information.
+          BRO-GPT is an AI and can make mistakes. Please consult department faculty for accurate information.
         </small>
       </main>
     </section>
