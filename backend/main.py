@@ -8,9 +8,6 @@ from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Form
 
-# from controllers.faceRecog import face_verification
-# from controllers.uploadImg import upload
-
 from mapFiles.nav_controller import router as nav_router
  
 from assistant.setup import setup_database
@@ -32,25 +29,11 @@ app.add_middleware(
 DB_PATH = "./assistant/chroma_db"
 DATA_PATH = "./assistant/data"
 
-# @app.post("/verify")
-# async def verify_face(file: UploadFile = File(...)):
-#     result = await face_verification(file)
-#     return result
-
-# @app.post("/admin/upload")
-# async def upload_photos(
-#     password: str = Form(...), 
-#     person_name: str = Form(...), 
-#     files: list[UploadFile] = File(...)
-# ):
-#     response = await upload(password, person_name, files)
-    # return response
-
 app.include_router(nav_router)
 
 class ChatRequest(BaseModel):
     question: str
-    model: str = "qwen2.5:0.5b"
+    model: str = "smollm2:360m"
     top_k: int = 2
  
  

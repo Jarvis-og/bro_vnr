@@ -22,7 +22,6 @@ normic_model = '/home/bro/.cache/huggingface/hub/models--nomic-ai--nomic-embed-t
 reranker_model = '/home/bro/.cache/huggingface/hub/models--cross-encoder--ms-marco-MiniLM-L-6-v2/snapshots/c5ee24cb16019beea0893ab7796b1df96625c6b8'
 
 print("→ Loading embedding model...")
-# try:
 embedding_model = SentenceTransformer(
     normic_model,
     trust_remote_code=True,
@@ -30,28 +29,12 @@ embedding_model = SentenceTransformer(
 )
 embedding_model.max_seq_length = 8192
 print_ram()
-print("✓ Embedding model loaded on CUDA")
-# except Exception as e:
-#     print(f"⚠ CUDA not available, using CPU: {e}")
-#     embedding_model = SentenceTransformer(
-#         normic_model,
-#         trust_remote_code=True,
-#         device='cpu'
-#     )
 
 print("→ Loading reranker model...")
-# try:
 reranker = CrossEncoder(
     reranker_model,
     device='cpu'
 )
-print("✓ Reranker loaded on CUDA")
-# except Exception as e:
-    # print(f"⚠ Reranker falling back to CPU: {e}")
-    # reranker = CrossEncoder(
-        # reranker_model, 
-        # device='cpu'
-    # )
 
 # ── Ollama HTTP call (replaces subprocess) ──────────────────────────────────
 def call_ollama(prompt, model):
